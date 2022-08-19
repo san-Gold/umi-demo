@@ -9,7 +9,7 @@ export default defineConfig({
   layout: {
     title: '@umijs/max',
   },
-  history:{ type:"hash" },
+  base:'/umi-demo/',
   publicPath:'/umi-demo/',
   routes: [
     {
