@@ -9,7 +9,7 @@ export default defineConfig({
   layout: {
     title: '@umijs/max',
   },
-  publicPath:'/umi-demo/',
+  publicPath:'http://81.68.75.77/umi-demo/',
   routes: [
     {
       path: '/',
