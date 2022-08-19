@@ -1,0 +1,35 @@
+name: Release to QA
+
+concurrency:
+  group: release-to-qa
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    name: Build for QA
+    runs-on: [self-hosted, Linux, X64]
+    container:
+      image: node:16.16.0
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+  deploy:
+    name: Deploy to QA
+    needs: build
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist
+      - run: rsync -avhz ./dist/ /application/html/umi-demo/
